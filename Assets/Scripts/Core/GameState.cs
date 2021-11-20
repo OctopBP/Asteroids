@@ -8,6 +8,7 @@ namespace Asteroids.Core
 	{
 		[SerializeField] private Camera _camera;
 		[SerializeField] private Spaceship _spaceship;
+		[SerializeField] private AsteroidFactory _asteroidFactory;
 
 		private IInput _input;
 		private Vector2 _screenSize;
@@ -16,6 +17,7 @@ namespace Asteroids.Core
 		{
 			_input = input;
 			CalculateCameraSize();
+			_asteroidFactory.Init(_screenSize);
 		}
 
 		public void Tick()
