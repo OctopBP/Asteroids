@@ -6,13 +6,16 @@ namespace Asteroids.Core
 {
 	public class GameState : MonoBehaviour, IState
 	{
+		[SerializeField] private Camera _camera;
 		[SerializeField] private Spaceship _spaceship;
 
 		private IInput _input;
+		private Vector2 _screenSize;
 
 		public void Init(IInput input)
 		{
 			_input = input;
+			CalculateCameraSize();
 		}
 
 		public void Tick()
@@ -21,16 +24,22 @@ namespace Asteroids.Core
 			HandleTurn();
 		}
 
+		private void CalculateCameraSize()
+		{
+			float cameraSize = _camera.orthographicSize * 2;
+			float aspect = _camera.aspect;
+			_screenSize = new Vector2(cameraSize * aspect, cameraSize);
+		}
+
 		private void HandleMove()
 		{
-			if (_input.IsMoving)
-				_spaceship.Move();
+			_spaceship.Move(_input.IsMoving);
+			_spaceship.ClampPosition(_screenSize);
 		}
 
 		private void HandleTurn()
 		{
-			if (_input.Turn != 0)
-				_spaceship.Turn(_input.Turn);
+			_spaceship.Turn(_input.Turn);
 		}
 	}
 }
