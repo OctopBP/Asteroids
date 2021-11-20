@@ -24,6 +24,7 @@ namespace Asteroids.Core
 		{
 			HandleMove();
 			HandleTurn();
+			HandleFire();
 		}
 
 		private void CalculateCameraSize()
@@ -42,6 +43,11 @@ namespace Asteroids.Core
 		private void HandleTurn()
 		{
 			_spaceship.Turn(_input.Turn);
+		}
+
+		private void HandleFire()
+		{
+			_spaceship.Fire(_input.IsFire);
 		}
 	}
 }

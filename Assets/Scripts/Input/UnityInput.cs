@@ -8,6 +8,7 @@ namespace Asteroids.Input
 
 		public bool IsMoving { get; private set; }
 		public float Turn { get; private set; }
+		public bool IsFire { get; private set; }
 
 		public UnityInput()
 		{
@@ -18,6 +19,9 @@ namespace Asteroids.Input
 
 			_inputControls.ActionMap.Turn.performed += TurnPerformed;
 			_inputControls.ActionMap.Turn.canceled += TurnCanceled;
+
+			_inputControls.ActionMap.Fire.performed += FirePerformed;
+			_inputControls.ActionMap.Fire.canceled += FireCanceled;
 
 			_inputControls.Enable();
 		}
@@ -41,6 +45,16 @@ namespace Asteroids.Input
 		private void TurnCanceled(InputAction.CallbackContext ctx)
 		{
 			Turn = 0;
+		}
+
+		private void FirePerformed(InputAction.CallbackContext ctx)
+		{
+			IsFire = true;
+		}
+
+		private void FireCanceled(InputAction.CallbackContext ctx)
+		{
+			IsFire = false;
 		}
 	}
 }

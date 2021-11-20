@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9065796250753071319}
   - component: {fileID: 9065796250753071318}
+  - component: {fileID: 3582262422328019016}
   m_Layer: 0
   m_Name: Spaceship
   m_TagString: Untagged
@@ -46,9 +47,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63a166b8de0e04733a55f63ffbc54759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeed: 5
-  _acceleration: 8
-  _turnSpeed: 200
+  _settings: {fileID: 11400000, guid: de09fd9ae20834f5dadf768376e2c334, type: 2}
+--- !u!114 &3582262422328019016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9065796250753071312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1510ce386fa77492aa1d893df0286c63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPrefab: {fileID: 6886799571194637805, guid: 0118d1037cff148e2ab54ebff88e4009,
+    type: 3}
 --- !u!1 &9065796250961939594
 GameObject:
   m_ObjectHideFlags: 0

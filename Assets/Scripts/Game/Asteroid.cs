@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace Asteroids.Game
 {
-	public class Asteroid : MonoBehaviour
+	public class Asteroid : MonoBehaviour, IShootable
 	{
 		[SerializeField] private Vector2 _speedRange;
 
@@ -20,6 +20,22 @@ namespace Asteroids.Game
 			CheckOutOfScreen();
 		}
 
+		public void Init(Vector2 screenSize)
+		{
+			gameObject.SetActive(true);
+
+			_screenSize = screenSize;
+
+			SetSize();
+			SetPosition();
+			SetSpeed();
+		}
+
+		public void OnShotted()
+		{
+			DestroyAsteroid();
+		}
+
 		private void Move()
 		{
 			transform.position += _velocity * Time.deltaTime;
@@ -32,20 +48,14 @@ namespace Asteroids.Game
 				|| transform.position.y > _screenSize.y / 2 + _size
 				|| transform.position.y < -_screenSize.y / 2 - _size)
 			{
-				OnDisable?.Invoke(this);
-				gameObject.SetActive(false);
+				DestroyAsteroid();
 			}
 		}
 
-		public void Init(Vector2 screenSize)
+		private void DestroyAsteroid()
 		{
-			gameObject.SetActive(true);
-
-			_screenSize = screenSize;
-
-			SetSize();
-			SetPosition();
-			SetSpeed();
+			OnDisable?.Invoke(this);
+			gameObject.SetActive(false);
 		}
 
 		private void SetSize()
