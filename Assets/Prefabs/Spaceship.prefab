@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1510ce386fa77492aa1d893df0286c63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 6886799571194637805, guid: 0118d1037cff148e2ab54ebff88e4009,
+  _bulletPrefab: {fileID: -2214485416694638211, guid: 0118d1037cff148e2ab54ebff88e4009,
     type: 3}
   _cooldownTime: 0.3
 --- !u!1 &9065796250961939594

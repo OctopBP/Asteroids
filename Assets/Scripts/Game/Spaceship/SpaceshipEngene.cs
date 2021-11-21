@@ -4,7 +4,7 @@ namespace Asteroids.Game
 {
 	public class SpaceshipEngene
 	{
-		private Vector3 _speed = Vector3.one;
+		private Vector3 _speed = Vector3.zero;
 		private SpaceshipSettings _settings;
 		private Transform _transform;
 

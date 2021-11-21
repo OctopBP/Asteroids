@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Asteroids.Game
 {
@@ -10,11 +10,11 @@ namespace Asteroids.Game
 		[SerializeField] private Vector2 _timeRange;
 
 		private Vector2 _screenSize;
-		private Queue<Asteroid> _pool;
+		private ObjectPool<Asteroid> _pool;
 
 		private void Start()
 		{
-			_pool = new Queue<Asteroid>();
+			_pool = new ObjectPool<Asteroid>(CreateAsteroid, Activate, Deactivate, Destroy, false, 10, 100);
 		}
 
 		public void Init(Vector2 screenSize)
@@ -41,7 +41,7 @@ namespace Asteroids.Game
 
 		private void SpawnAsteroid()
 		{
-			Asteroid newAsteroid = GetPrefab();
+			Asteroid newAsteroid = _pool.Get();
 
 			newAsteroid.Init(_screenSize);
 			newAsteroid.OnDisable += ReturnToPool;
@@ -49,19 +49,13 @@ namespace Asteroids.Game
 
 		private void ReturnToPool(Asteroid newAsteroid)
 		{
-			_pool.Enqueue(newAsteroid);
+			_pool.Release(newAsteroid);
 			newAsteroid.OnDisable -= ReturnToPool;
 		}
 
-		private Asteroid GetPrefab()
-		{
-			if (_pool.Count == 0)
-			{
-				Asteroid newAsteroid = Instantiate(_prefab, transform);
-				return newAsteroid;
-			}
-
-			return _pool.Dequeue();
-		}
+		private Asteroid CreateAsteroid() => Instantiate(_prefab, transform);
+		private void Activate(Asteroid asteroid) => asteroid.gameObject.SetActive(true);
+		private void Deactivate(Asteroid asteroid) => asteroid.gameObject.SetActive(false);
+		private void Destroy(Asteroid asteroid) => Destroy(asteroid.gameObject);
 	}
 }

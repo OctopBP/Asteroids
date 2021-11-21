@@ -1,22 +1,23 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Asteroids.Game
 {
 	public class SpaceshipGun : MonoBehaviour, ISpaceshipGun
 	{
-		[SerializeField] private GameObject _bulletPrefab;
+		[SerializeField] private Bullet _bulletPrefab;
+		[SerializeField] private Transform _container;
 		[SerializeField] private float _cooldownTime = 0.3f;
 
-		private Queue<GameObject> _bullets;
+		private ObjectPool<Bullet> _bullets;
 		private float _cooldown;
 
 		private bool _canShoot => _cooldown > 0;
 
 		private void Start()
 		{
-			_bullets = new Queue<GameObject>();
+			_bullets = new ObjectPool<Bullet>(CreateBullet, Activate, Deactivate, Destroy, false, 10, 100);
 		}
 
 		public void Fire()
@@ -24,12 +25,16 @@ namespace Asteroids.Game
 			if (_canShoot) return;
 			_cooldown = _cooldownTime;
 
-			GameObject newBullet = Instantiate(_bulletPrefab);
-			newBullet.transform.position = transform.position;
-			newBullet.transform.rotation = transform.rotation;
+			Bullet newBullet = _bullets.Get();
+			newBullet.Init(_bullets, transform);
 
 			Timer();
 		}
+
+		private Bullet CreateBullet() => Instantiate(_bulletPrefab, _container);
+		private void Activate(Bullet bullet) => bullet.gameObject.SetActive(true);
+		private void Deactivate(Bullet bullet) => bullet.gameObject.SetActive(false);
+		private void Destroy(Bullet bullet) => Destroy(bullet.gameObject);
 
 		private async void Timer()
 		{
