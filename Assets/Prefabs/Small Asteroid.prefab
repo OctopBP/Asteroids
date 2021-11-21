@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9065796250753071319}
   - component: {fileID: 1847701464254798397}
-  - component: {fileID: -1022850654220226835}
+  - component: {fileID: 7236518702917179453}
   m_Layer: 6
-  m_Name: Asteroid
+  m_Name: Small Asteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
---- !u!114 &-1022850654220226835
+--- !u!114 &7236518702917179453
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,17 +59,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 9065796250753071312}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed5634e8379c94ae6a572ce52f4bd117, type: 3}
+  m_Script: {fileID: 11500000, guid: cb09ed2535bc540329e7dbf5c48582a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _subAsteroids: 2
+  _subAsteroids: 0
   _speedRange: {x: 1, y: 2}
   _spriteRenderer: {fileID: 9065796250961939592}
   _spriteList:
   - {fileID: 21300000, guid: da496a46521bc4845a739765c1e6b63e, type: 3}
   - {fileID: 21300000, guid: 188eaa4d184d845959ccad7f9d09502d, type: 3}
   - {fileID: 21300000, guid: 9c10875ecad1146efaabacbe94e67078, type: 3}
-  _sizeRange: {x: 1, y: 2}
+  _sizeRange: {x: 0.4, y: 0.8}
+  _randomRange: {x: 0.5, y: 1}
+  _speedMultiplier: 2
 --- !u!1 &9065796250961939594
 GameObject:
   m_ObjectHideFlags: 0

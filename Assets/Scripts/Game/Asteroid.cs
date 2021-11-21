@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -6,13 +7,21 @@ namespace Asteroids.Game
 {
 	public class Asteroid : MonoBehaviour, IShootable
 	{
+		[SerializeField] private int _subAsteroids;
 		[SerializeField] private Vector2 _speedRange;
+		[SerializeField] private SpriteRenderer _spriteRenderer;
+		[SerializeField] private List<Sprite> _spriteList;
+		[SerializeField] private Vector2 _sizeRange;
+
+		public int SubAsteroids => _subAsteroids;
+		public Vector3 Velocity => _velocity;
+		public event Action<Asteroid> OnDisable;
 
 		private float _size;
-		private Vector3 _velocity;
+		protected Vector3 _velocity;
 		private Vector2 _screenSize;
 
-		public event Action<Asteroid> OnDisable;
+		protected int RandomSign => Random.value < 0.5f ? -1 : 1;
 
 		private void Update()
 		{
@@ -29,6 +38,9 @@ namespace Asteroids.Game
 			SetSize();
 			SetPosition();
 			SetSpeed();
+
+			SetSprite();
+			SetSpriteRotation();
 		}
 
 		public void OnShotted()
@@ -60,7 +72,7 @@ namespace Asteroids.Game
 
 		private void SetSize()
 		{
-			_size = Random.Range(1f, 2f);
+			_size = Random.Range(_sizeRange.x, _sizeRange.y);
 			transform.localScale = Vector3.one * _size;
 		}
 
@@ -69,8 +81,7 @@ namespace Asteroids.Game
 			Vector2 position = new Vector2(GetPos(_screenSize.x), GetPos(_screenSize.y));
 			transform.position = position;
 
-			int RandomSign() => Random.value < 0.5f ? -1 : 1;
-			float GetPos(float value) => (value / 2 + _size) * RandomSign();
+			float GetPos(float value) => (value / 2 + _size) * RandomSign;
 		}
 
 		private void SetSpeed()
@@ -82,6 +93,18 @@ namespace Asteroids.Game
 			float speed = Random.Range(_speedRange.x, _speedRange.y);
 
 			_velocity = direction * speed;
+		}
+
+		private void SetSpriteRotation()
+		{
+			float randomAngle = Random.Range(0, 360);
+			_spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, randomAngle);
+		}
+
+		private void SetSprite()
+		{
+			int randomIndex = Random.Range(0, _spriteList.Count);
+			_spriteRenderer.sprite = _spriteList[randomIndex];
 		}
 	}
 }
