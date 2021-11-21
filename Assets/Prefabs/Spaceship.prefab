@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9065796250753071319}
   - component: {fileID: 9065796250753071318}
   - component: {fileID: 3582262422328019016}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spaceship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,6 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: 6886799571194637805, guid: 0118d1037cff148e2ab54ebff88e4009,
     type: 3}
+  _cooldownTime: 0.3
 --- !u!1 &9065796250961939594
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,7 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9065796250961939593}
   - component: {fileID: 9065796250961939592}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9065796251589903955}
   - component: {fileID: 9065796251589903954}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

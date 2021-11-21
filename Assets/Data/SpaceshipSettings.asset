@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxSpeed: 5
   _acceleration: 8
+  _drag: 2
   _turnSpeed: 200
