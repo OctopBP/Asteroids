@@ -53,6 +53,15 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""767f59ec-1238-4337-a451-8a1aebe5f588"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -118,7 +127,7 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Fire"",
+                    ""action"": ""Start"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -132,6 +141,7 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
         m_ActionMap_Move = m_ActionMap.FindAction("Move", throwIfNotFound: true);
         m_ActionMap_Turn = m_ActionMap.FindAction("Turn", throwIfNotFound: true);
         m_ActionMap_Fire = m_ActionMap.FindAction("Fire", throwIfNotFound: true);
+        m_ActionMap_Start = m_ActionMap.FindAction("Start", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -194,6 +204,7 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMap_Move;
     private readonly InputAction m_ActionMap_Turn;
     private readonly InputAction m_ActionMap_Fire;
+    private readonly InputAction m_ActionMap_Start;
     public struct ActionMapActions
     {
         private @InputControls m_Wrapper;
@@ -201,6 +212,7 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_ActionMap_Move;
         public InputAction @Turn => m_Wrapper.m_ActionMap_Turn;
         public InputAction @Fire => m_Wrapper.m_ActionMap_Fire;
+        public InputAction @Start => m_Wrapper.m_ActionMap_Start;
         public InputActionMap Get() { return m_Wrapper.m_ActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -219,6 +231,9 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                 @Fire.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnFire;
                 @Fire.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnFire;
                 @Fire.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnFire;
+                @Start.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnStart;
+                @Start.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnStart;
+                @Start.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnStart;
             }
             m_Wrapper.m_ActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -232,6 +247,9 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
+                @Start.started += instance.OnStart;
+                @Start.performed += instance.OnStart;
+                @Start.canceled += instance.OnStart;
             }
         }
     }
@@ -241,5 +259,6 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnTurn(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnStart(InputAction.CallbackContext context);
     }
 }

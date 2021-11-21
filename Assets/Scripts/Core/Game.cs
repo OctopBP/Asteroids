@@ -5,15 +5,13 @@ namespace Asteroids.Core
 {
 	public class Game : MonoBehaviour
 	{
-		[SerializeField] private GameState _gameState;
-
 		private IInput _input;
 		private IState _state;
 
 		private void Start()
 		{
 			_input = new UnityInput();
-			NewState(_gameState);
+			NewState(MenuState.Instance);
 		}
 
 		private void Update()
@@ -21,10 +19,12 @@ namespace Asteroids.Core
 			_state.Tick();
 		}
 
-		private void NewState(GameState state)
+		public void StartGame() => NewState(GameState.Instance);
+
+		private void NewState(IState state)
 		{
 			_state = state;
-			_state.Init(_input);
+			_state.Init(this, _input);
 		}
 	}
 }

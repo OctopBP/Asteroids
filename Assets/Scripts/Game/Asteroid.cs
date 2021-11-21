@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Asteroids.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Asteroids.Game
 {
-	public class Asteroid : MonoBehaviour, IShootable
+	public class Asteroid : PoolableUnit, IShootable
 	{
 		[SerializeField] private int _subAsteroids;
 		[SerializeField] private Vector2 _speedRange;
@@ -20,8 +21,6 @@ namespace Asteroids.Game
 		private float _size;
 		protected Vector3 _velocity;
 		private Vector2 _screenSize;
-
-		protected int RandomSign => Random.value < 0.5f ? -1 : 1;
 
 		private void Update()
 		{
@@ -81,7 +80,7 @@ namespace Asteroids.Game
 			Vector2 position = new Vector2(GetPos(_screenSize.x), GetPos(_screenSize.y));
 			transform.position = position;
 
-			float GetPos(float value) => (value / 2 + _size) * RandomSign;
+			float GetPos(float value) => (value / 2 + _size) * Extensions.RandomSign();
 		}
 
 		private void SetSpeed()

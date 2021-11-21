@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 758f0c6f2629a40a2b4b37115055ecb9
+guid: 1c1edb06dd689465bb0c72b39867c3c8
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Glass
-    second: {fileID: 2100000, guid: 89f8190de48464c95bd0a5b88e4ad14e, type: 2}
+    second: {fileID: 2100000, guid: f9c43b18a8cda4706bf4facff95366a3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -29,6 +29,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Plastic
     second: {fileID: 2100000, guid: 76f4e54a3a8c7423b80ab51832381d29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ScreenActive
+    second: {fileID: 2100000, guid: c0560f9a418114c26960293fea77ca1a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -13,7 +13,14 @@ namespace Asteroids.Core
 		private IInput _input;
 		private Vector2 _screenSize;
 
-		public void Init(IInput input)
+		public static IState Instance { get; private set; }
+
+		private void Awake()
+		{
+			Instance = Instance ?? this;
+		}
+
+		public void Init(Game game, IInput input)
 		{
 			_input = input;
 			CalculateCameraSize();

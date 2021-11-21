@@ -1,4 +1,5 @@
 using System;
+using Asteroids.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -21,7 +22,7 @@ namespace Asteroids.Game
 		private void SetSpeed(Vector3 velocity)
 		{
 			float speed = velocity.magnitude;
-			float random = Random.Range(_randomRange.x, _randomRange.y) * RandomSign;
+			float random = Random.Range(_randomRange.x, _randomRange.y) * Extensions.RandomSign();
 			Vector3 cross = Vector3.Cross(velocity, Vector3.forward).normalized;
 			_velocity = (velocity.normalized + cross * random).normalized * speed * _speedMultiplier;
 		}
