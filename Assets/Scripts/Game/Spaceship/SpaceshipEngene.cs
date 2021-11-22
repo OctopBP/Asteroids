@@ -9,7 +9,7 @@ namespace Asteroids.Game
 		[SerializeField] private float _fireNoisePower = 0.1f;
 		[SerializeField] private float _fireReaction = 100;
 
-		private Vector3 _speed = Vector3.zero;
+		private Vector3 _speed;
 		private SpaceshipSettings _settings;
 		private Transform _transform;
 		private Vector3 _fireStartScale;
@@ -23,6 +23,8 @@ namespace Asteroids.Game
 		{
 			_settings = settings;
 			_transform = spaceshipTransform;
+
+			_speed = Vector3.zero;
 		}
 
 		public void Move(bool moving)

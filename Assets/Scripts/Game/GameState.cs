@@ -5,34 +5,39 @@ using UnityEngine;
 
 namespace Asteroids.Game
 {
-	public class GameState : MonoBehaviour
+	public class GameState : MonoBehaviour, IGameState
 	{
 		[SerializeField] private Camera _camera;
 		[SerializeField] private Spaceship _spaceship;
 		[SerializeField] private AsteroidFactory _asteroidFactory;
 		[SerializeField] private GameUI _gameUI;
 
+		private GameLoop _game;
 		private GameData _gameData;
 		private IInput _input;
 		private Vector2 _screenSize;
 
-		private void Start()
+		public void Init(GameLoop game, IInput input)
 		{
-			Init();
-		}
+			_game = game;
+			_input = input;
 
-		private void Init()
-		{
-			_input = new UnityInput();
 			_gameData = new GameData();
 
 			CalculateCameraSize();
 
-			_asteroidFactory.Init(_screenSize, _gameData);
 			_gameUI.Init(_gameData);
+			_spaceship.Init(this, _gameData);
+			_asteroidFactory.Init(_screenSize, _gameData);
 		}
 
-		private void Update()
+		public void Lose()
+		{
+			_gameUI.ShowResultScreen();
+			_game.Lose();
+		}
+
+		public void Tick()
 		{
 			HandleMove();
 			HandleTurn();

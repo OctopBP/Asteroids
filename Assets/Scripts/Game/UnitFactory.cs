@@ -13,8 +13,6 @@ namespace Asteroids.Game
 		[SerializeField] private int _defaultCapacity = 10;
 		[SerializeField] private int _maxSize = 100;
 
-		public event Action<PoolableUnit> OnReturn;
-
 		private Vector2 _screenSize;
 		private ObjectPool<PoolableUnit> _pool;
 
