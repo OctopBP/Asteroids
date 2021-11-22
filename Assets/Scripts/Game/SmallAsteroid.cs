@@ -1,4 +1,4 @@
-using System;
+using Asteroids.Data;
 using Asteroids.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,9 +11,9 @@ namespace Asteroids.Game
 		[SerializeField] private Vector2 _randomRange;
 		[SerializeField] private float _speedMultiplier = 2;
 
-		public void Init(Vector2 screenSize, Vector3 position, Vector3 velocity)
+		public void Init(Vector2 screenSize, GameData gameData, Vector3 position, Vector3 velocity)
 		{
-			base.Init(screenSize);
+			base.Init(screenSize, gameData);
 
 			SetPosition(position);
 			SetSpeed(velocity);

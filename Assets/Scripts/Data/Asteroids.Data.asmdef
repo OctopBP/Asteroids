@@ -1,11 +1,7 @@
 {
-    "name": "Asteroids.Game.UI",
-    "rootNamespace": "Asteroids.Game.UI",
-    "references": [
-        "GUID:f27cf45a063154ddf864d00dee1d2d46",
-        "GUID:17f0b64ec130748e7afa68d325038b60",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f"
-    ],
+    "name": "Asteroids.Data",
+    "rootNamespace": "Asteroids.Data",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -1,33 +1,38 @@
-using Asteroids.Game;
+using Asteroids.Data;
+using Asteroids.Game.UI;
 using Asteroids.Input;
 using UnityEngine;
 
-namespace Asteroids.Core
+namespace Asteroids.Game
 {
-	public class GameState : MonoBehaviour, IState
+	public class GameState : MonoBehaviour
 	{
 		[SerializeField] private Camera _camera;
 		[SerializeField] private Spaceship _spaceship;
 		[SerializeField] private AsteroidFactory _asteroidFactory;
+		[SerializeField] private GameUI _gameUI;
 
+		private GameData _gameData;
 		private IInput _input;
 		private Vector2 _screenSize;
 
-		public static IState Instance { get; private set; }
-
-		private void Awake()
+		private void Start()
 		{
-			Instance = Instance ?? this;
+			Init();
 		}
 
-		public void Init(Game game, IInput input)
+		private void Init()
 		{
-			_input = input;
+			_input = new UnityInput();
+			_gameData = new GameData();
+
 			CalculateCameraSize();
-			_asteroidFactory.Init(_screenSize);
+
+			_asteroidFactory.Init(_screenSize, _gameData);
+			_gameUI.Init(_gameData);
 		}
 
-		public void Tick()
+		private void Update()
 		{
 			HandleMove();
 			HandleTurn();

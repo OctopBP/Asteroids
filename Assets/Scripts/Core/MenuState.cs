@@ -42,7 +42,7 @@ namespace Asteroids.Core
 				go.SetActive(false);
 			}
 
-			_game.StartGame();
+			// _game.StartGame();
 		}
 	}
 }

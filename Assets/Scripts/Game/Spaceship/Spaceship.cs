@@ -5,14 +5,13 @@ namespace Asteroids.Game
 	public class Spaceship : MonoBehaviour
 	{
 		[SerializeField] private SpaceshipSettings _settings;
+		[SerializeField] private SpaceshipEngene _spaceshipEngene;
 
 		private ISpaceshipGun _spaceshipGun;
-		private SpaceshipEngene _spaceshipEngene;
 
 		private void Start()
 		{
 			_spaceshipGun = GetComponent<SpaceshipGun>();
-			_spaceshipEngene = new SpaceshipEngene();
 			_spaceshipEngene.Init(transform, _settings);
 		}
 

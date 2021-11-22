@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Asteroids.Data;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -10,19 +11,19 @@ namespace Asteroids.Game
 		[SerializeField] private SmallAsteroid _smallPrefab;
 		[SerializeField] private Vector2 _timeRange;
 
+		private GameData _gameData;
 		private Vector2 _screenSize;
 		private ObjectPool<Asteroid> _pool;
 		private ObjectPool<SmallAsteroid> _smallPool;
 
-		private void Start()
+		public void Init(Vector2 screenSize, GameData gameData)
 		{
 			_pool = new ObjectPool<Asteroid>(CreateAsteroid, Activate, Deactivate, Destroy, false, 10, 100);
 			_smallPool = new ObjectPool<SmallAsteroid>(CreateSmallAsteroid, Activate, Deactivate, Destroy, false, 10, 100);
-		}
 
-		public void Init(Vector2 screenSize)
-		{
+			_gameData = gameData;
 			_screenSize = screenSize;
+
 			Spawn();
 		}
 
@@ -46,7 +47,7 @@ namespace Asteroids.Game
 		{
 			Asteroid newAsteroid = _pool.Get();
 
-			newAsteroid.Init(_screenSize);
+			newAsteroid.Init(_screenSize, _gameData);
 			newAsteroid.OnDisable += ReturnToPool;
 		}
 
@@ -54,7 +55,7 @@ namespace Asteroids.Game
 		{
 			SmallAsteroid newAsteroid = _smallPool.Get();
 
-			newAsteroid.Init(_screenSize, asteroid.transform.position, asteroid.Velocity);
+			newAsteroid.Init(_screenSize, _gameData, asteroid.transform.position, asteroid.Velocity);
 			newAsteroid.OnDisable += ReturnToSmall;
 		}
 

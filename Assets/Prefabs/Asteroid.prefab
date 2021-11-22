@@ -63,13 +63,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _subAsteroids: 2
-  _speedRange: {x: 1, y: 2}
+  _speedRange: {x: 1, y: 2.2}
+  _sizeRange: {x: 1.4, y: 2}
   _spriteRenderer: {fileID: 9065796250961939592}
   _spriteList:
   - {fileID: 21300000, guid: da496a46521bc4845a739765c1e6b63e, type: 3}
   - {fileID: 21300000, guid: 188eaa4d184d845959ccad7f9d09502d, type: 3}
   - {fileID: 21300000, guid: 9c10875ecad1146efaabacbe94e67078, type: 3}
-  _sizeRange: {x: 1, y: 2}
+  _color1: {r: 0.764151, g: 0.58001673, b: 0.27033645, a: 1}
+  _color2: {r: 0.41509432, g: 0.2748052, b: 0.14293341, a: 1}
+  _expolosionPS: {fileID: 4152924215869524766, guid: ba9d3940aa0c54c81a4e599f8fb5218f,
+    type: 3}
 --- !u!1 &9065796250961939594
 GameObject:
   m_ObjectHideFlags: 0
