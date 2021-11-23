@@ -9,7 +9,8 @@ namespace Asteroids.Game
 		[SerializeField] private float _fireNoisePower = 0.1f;
 		[SerializeField] private float _fireReaction = 100;
 
-		private Vector3 _speed;
+		public Vector3 Speed { get; private set; }
+
 		private SpaceshipSettings _settings;
 		private Transform _transform;
 		private Vector3 _fireStartScale;
@@ -24,7 +25,7 @@ namespace Asteroids.Game
 			_settings = settings;
 			_transform = spaceshipTransform;
 
-			_speed = Vector3.zero;
+			Speed = Vector3.zero;
 		}
 
 		public void Move(bool moving)
@@ -34,9 +35,14 @@ namespace Asteroids.Game
 			Move();
 		}
 
+		public void Stop()
+		{
+			_fire.localScale = Vector3.zero;
+		}
+
 		private void Move()
 		{
-			_transform.position += _speed * Time.deltaTime;
+			_transform.position += Speed * Time.deltaTime;
 		}
 
 		private void ScaleFire(bool moving)
@@ -72,15 +78,15 @@ namespace Asteroids.Game
 
 		private void SpeedUp()
 		{
-			_speed += _transform.up * _settings.Acceleration * Time.deltaTime;
-			_speed = Mathf.Clamp(_speed.magnitude, 0, _settings.MaxSpeed) * _speed.normalized;
+			Speed += _transform.up * _settings.Acceleration * Time.deltaTime;
+			Speed = Mathf.Clamp(Speed.magnitude, 0, _settings.MaxSpeed) * Speed.normalized;
 		}
 
 		private void Drag()
 		{
-			float magnitude = _speed.magnitude;
+			float magnitude = Speed.magnitude;
 			magnitude -= _settings.Drag * Time.deltaTime;
-			_speed = magnitude * _speed.normalized;
+			Speed = magnitude * Speed.normalized;
 		}
 	}
 }

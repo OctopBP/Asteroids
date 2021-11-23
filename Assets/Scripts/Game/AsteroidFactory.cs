@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Asteroids.Data;
 using UnityEngine;
@@ -16,6 +17,9 @@ namespace Asteroids.Game
 		private ObjectPool<Asteroid> _pool;
 		private ObjectPool<SmallAsteroid> _smallPool;
 
+		private List<Asteroid> _asteroidsInField = new List<Asteroid>();
+		private List<Asteroid> _smallAsteroidsInField = new List<Asteroid>();
+
 		public void Init(Vector2 screenSize, GameData gameData)
 		{
 			_pool = new ObjectPool<Asteroid>(CreateAsteroid, Activate, Deactivate, Destroy, false, 10, 100);
@@ -24,8 +28,32 @@ namespace Asteroids.Game
 			_gameData = gameData;
 			_screenSize = screenSize;
 
+			ClearActeroids();
+			ClearSmallActeroids();
+
 			Spawn();
 		}
+
+		private void ClearActeroids()
+		{
+			_asteroidsInField.ForEach(asteroid =>
+			{
+				_pool.Release(asteroid);
+				asteroid.OnDisable -= ReturnToPool;
+			});
+			_asteroidsInField.Clear();
+		}
+
+		private void ClearSmallActeroids()
+		{
+			_smallAsteroidsInField.ForEach(asteroid =>
+			{
+				_smallPool.Release(asteroid as SmallAsteroid);
+				asteroid.OnDisable -= ReturnToSmall;
+			});
+			_smallAsteroidsInField.Clear();
+		}
+
 
 		private async void Spawn()
 		{
@@ -49,6 +77,8 @@ namespace Asteroids.Game
 
 			newAsteroid.Init(_screenSize, _gameData);
 			newAsteroid.OnDisable += ReturnToPool;
+
+			_asteroidsInField.Add(newAsteroid);
 		}
 
 		private void SpawnSmallAsteroid(Asteroid asteroid)
@@ -57,6 +87,8 @@ namespace Asteroids.Game
 
 			newAsteroid.Init(_screenSize, _gameData, asteroid.transform.position, asteroid.Velocity);
 			newAsteroid.OnDisable += ReturnToSmall;
+
+			_asteroidsInField.Add(newAsteroid);
 		}
 
 		private void ReturnToPool(Asteroid asteroid)
@@ -66,12 +98,14 @@ namespace Asteroids.Game
 
 			_pool.Release(asteroid);
 			asteroid.OnDisable -= ReturnToPool;
+			_asteroidsInField.Remove(asteroid);
 		}
 
 		private void ReturnToSmall(Asteroid asteroid)
 		{
 			_smallPool.Release(asteroid as SmallAsteroid);
 			asteroid.OnDisable -= ReturnToSmall;
+			_asteroidsInField.Remove(asteroid);
 		}
 
 

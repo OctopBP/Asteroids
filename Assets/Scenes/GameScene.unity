@@ -1257,6 +1257,56 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3232008570769779002, guid: 3c3f48042458c495786d8a4cc6ccec1f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3232008570769779004, guid: 3c3f48042458c495786d8a4cc6ccec1f,
+        type: 3}
+      propertyPath: ShapeModule.type
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3232008570769779004, guid: 3c3f48042458c495786d8a4cc6ccec1f,
+        type: 3}
+      propertyPath: ShapeModule.arc.value
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3232008570769779004, guid: 3c3f48042458c495786d8a4cc6ccec1f,
+        type: 3}
+      propertyPath: ShapeModule.m_Rotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3232008570769779004, guid: 3c3f48042458c495786d8a4cc6ccec1f,
+        type: 3}
+      propertyPath: ShapeModule.m_Rotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3232008570769779004, guid: 3c3f48042458c495786d8a4cc6ccec1f,
+        type: 3}
+      propertyPath: ShapeModule.m_Rotation.z
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 3232008570769779004, guid: 3c3f48042458c495786d8a4cc6ccec1f,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3232008570769779004, guid: 3c3f48042458c495786d8a4cc6ccec1f,
+        type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3232008570769779005, guid: 3c3f48042458c495786d8a4cc6ccec1f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3232008570769779005, guid: 3c3f48042458c495786d8a4cc6ccec1f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3582262422328019016, guid: 3c3f48042458c495786d8a4cc6ccec1f,
         type: 3}
       propertyPath: _container

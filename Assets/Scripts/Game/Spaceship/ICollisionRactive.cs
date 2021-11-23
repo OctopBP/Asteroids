@@ -1,7 +1,9 @@
+using UnityEngine;
+
 namespace Asteroids.Game
 {
 	public interface ICollisionRactive
 	{
-		void OnCollision();
+		void OnCollision(Vector3 from);
 	}
 }

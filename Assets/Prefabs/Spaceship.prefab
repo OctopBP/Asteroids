@@ -119,6 +119,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7182703861743674539}
+  - {fileID: 3232008570769779005}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -235,6 +236,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: de09fd9ae20834f5dadf768376e2c334, type: 2}
   _spaceshipEngene: {fileID: 564432155066276554}
+  _spriteRenderer: {fileID: 7555956528927058141}
+  _destroyPS: {fileID: 3232008570769779004}
 --- !u!114 &3582262422328019016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,3 +269,74 @@ MonoBehaviour:
   _fire: {fileID: 7182703861743674539}
   _fireNoisePower: 2
   _fireReaction: 5
+--- !u!1001 &7528890780507471554
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 9065796250753071319}
+    m_Modifications:
+    - target: {fileID: 4945402012710492152, guid: fdfd56f9ea91a4c28ab47b817f84ac1d,
+        type: 3}
+      propertyPath: m_Name
+      value: Spaceship Explosion PS
+      objectReference: {fileID: 0}
+    - target: {fileID: 4945402012710492152, guid: fdfd56f9ea91a4c28ab47b817f84ac1d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4945402012710492159, guid: fdfd56f9ea91a4c28ab47b817f84ac1d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4945402012710492159, guid: fdfd56f9ea91a4c28ab47b817f84ac1d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4945402012710492159, guid: fdfd56f9ea91a4c28ab47b817f84ac1d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4945402012710492159, guid: fdfd56f9ea91a4c28ab47b817f84ac1d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4945402012710492159, guid: fdfd56f9ea91a4c28ab47b817f84ac1d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4945402012710492159, guid: fdfd56f9ea91a4c28ab47b817f84ac1d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4945402012710492159, guid: fdfd56f9ea91a4c28ab47b817f84ac1d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4945402012710492159, guid: fdfd56f9ea91a4c28ab47b817f84ac1d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fdfd56f9ea91a4c28ab47b817f84ac1d, type: 3}
+--- !u!4 &3232008570769779005 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4945402012710492159, guid: fdfd56f9ea91a4c28ab47b817f84ac1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7528890780507471554}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3232008570769779004 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4945402012710492158, guid: fdfd56f9ea91a4c28ab47b817f84ac1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7528890780507471554}
+  m_PrefabAsset: {fileID: 0}
