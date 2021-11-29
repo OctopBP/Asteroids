@@ -1,5 +1,4 @@
 using System;
-using Asteroids.Utils;
 using UnityEngine;
 
 namespace Asteroids.Game
@@ -10,61 +9,47 @@ namespace Asteroids.Game
 
 		public event Action<Ufo> OnDisable;
 
-		private Vector2 _screenSize;
 		private Transform _target;
+		private Vector3 _velocity;
+
 
 		private void Update()
 		{
 			Move();
-			CheckOutOfScreen();
 		}
 
-		public void Init()
+		public void Init(Transform target)
 		{
-
-		}
-
-		public void Init(Vector2 screenSize)
-		{
+			_target = target;
 			gameObject.SetActive(true);
-			_screenSize = screenSize;
-			SetPosition();
 		}
 
-		public void OnShotted()
+		public void OnShot()
 		{
-			DestroyUfo();
+			DestroyUnit();
 		}
 
 		private void Move()
 		{
-			Vector3 direction = transform.position - _target.position;
-			transform.position += _speed * direction * Time.deltaTime;
+			if (_target == null || !_target.gameObject.activeSelf) return;
+
+			Vector3 direction = _target.position - transform.position;
+			_velocity = _speed * direction.normalized;
+			transform.position += _velocity * Time.deltaTime;
 		}
 
-		private void CheckOutOfScreen()
+		private void OnTriggerEnter2D(Collider2D other)
 		{
-			if (transform.position.x > _screenSize.x / 2
-				|| transform.position.x < -_screenSize.x / 2
-				|| transform.position.y > _screenSize.y / 2
-				|| transform.position.y < -_screenSize.y / 2)
-			{
-				DestroyUfo();
-			}
+			if (!other.TryGetComponent(out ICollisionRactive collidable)) return;
+			collidable.OnCollision(_velocity);
 		}
 
-		private void DestroyUfo()
+		protected override void DestroyUnit()
 		{
+			if (!gameObject.activeSelf) return;
+
 			OnDisable?.Invoke(this);
 			gameObject.SetActive(false);
-		}
-
-		private void SetPosition()
-		{
-			Vector2 position = new Vector2(GetPos(_screenSize.x), GetPos(_screenSize.y));
-			transform.position = position;
-
-			float GetPos(float value) => (value / 2) * Extensions.RandomSign();
 		}
 	}
 }

@@ -39,7 +39,7 @@ namespace Asteroids.Game
 		private void OnTriggerEnter2D(Collider2D other)
 		{
 			if (!other.TryGetComponent<IShootable>(out IShootable shootable)) return;
-			shootable.OnShotted();
+			shootable.OnShot();
 			ReturnToPool();
 		}
 

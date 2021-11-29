@@ -1,57 +1,37 @@
-using System;
-using System.Threading.Tasks;
+using Asteroids.Data;
+using Asteroids.Utils;
 using UnityEngine;
-using UnityEngine.Pool;
-using Random = UnityEngine.Random;
 
 namespace Asteroids.Game
 {
-	public class UnitFactory : MonoBehaviour
+	public class UnitFactory
 	{
-		[SerializeField] private PoolableUnit _prefab;
-		[SerializeField] private Vector2 _timeRange;
-		[SerializeField] private int _defaultCapacity = 10;
-		[SerializeField] private int _maxSize = 100;
-
 		private Vector2 _screenSize;
-		private ObjectPool<PoolableUnit> _pool;
+		private GameData _gameData;
 
-		private void Start()
-		{
-			_pool = new ObjectPool<PoolableUnit>(CreateItem, Activate, Deactivate, Destroy, false, _defaultCapacity, _maxSize);
-		}
-
-		public void Init(Vector2 screenSize)
+		public UnitFactory(Vector2 screenSize, GameData gameData)
 		{
 			_screenSize = screenSize;
-			Spawn();
+			_gameData = gameData;
 		}
 
-		private async void Spawn()
+		public void SetupItem(PoolableUnit item)
 		{
-			while (Application.isPlaying)
-			{
-				SpawnItem();
-				await WaitRandomTime();
-			}
+			float size = item.Size;
+			item.transform.localScale = GetSize(size);
+			item.transform.position = GetPosition(size);
 		}
 
-		private async Task WaitRandomTime()
+		private Vector3 GetPosition(float size)
 		{
-			float randomTime = Random.Range(_timeRange.x, _timeRange.y);
-			int milliseconds = Mathf.RoundToInt(randomTime * 1000);
-			await Task.Delay(milliseconds);
+			return new Vector3(GetPos(_screenSize.x), GetPos(_screenSize.y));
+
+			float GetPos(float value) => (value / 2 + size) * Extensions.RandomSign();
 		}
 
-		private void SpawnItem()
+		private Vector3 GetSize(float size)
 		{
-			PoolableUnit newItem = _pool.Get();
-			newItem.Init(_pool);
+			return Vector3.one * size;
 		}
-
-		private PoolableUnit CreateItem() => Instantiate(_prefab, transform);
-		private void Activate(PoolableUnit item) => item.gameObject.SetActive(true);
-		private void Deactivate(PoolableUnit item) => item.gameObject.SetActive(false);
-		private void Destroy(PoolableUnit item) => Destroy(item.gameObject);
 	}
 }

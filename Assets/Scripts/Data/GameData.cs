@@ -4,6 +4,8 @@ namespace Asteroids.Data
 {
 	public class GameData
 	{
+		public SpaceshipData SpaceshipData { get; private set; }
+
 		public event Action<int> OnScoreChange;
 		public int Score { get; private set; }
 
@@ -16,4 +18,5 @@ namespace Asteroids.Data
 			OnScoreChange?.Invoke(Score);
 		}
 	}
+
 }

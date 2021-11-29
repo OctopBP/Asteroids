@@ -10,12 +10,14 @@ namespace Asteroids.Game
 		[SerializeField] private Camera _camera;
 		[SerializeField] private Spaceship _spaceship;
 		[SerializeField] private AsteroidFactory _asteroidFactory;
+		[SerializeField] private UfoFactory _ufoFactory;
 		[SerializeField] private GameUI _gameUI;
 
 		private GameLoop _game;
 		private GameData _gameData;
 		private IInput _input;
 		private Vector2 _screenSize;
+		private UnitFactory _unitFactory;
 
 		public void Init(GameLoop game, IInput input)
 		{
@@ -23,12 +25,14 @@ namespace Asteroids.Game
 			_input = input;
 
 			_gameData = new GameData();
+			_screenSize = CalculateCameraSize(_camera);
 
-			CalculateCameraSize();
+			_unitFactory = new UnitFactory(_screenSize, _gameData);
 
 			_gameUI.Init(_gameData);
 			_spaceship.Init(this, _gameData);
-			_asteroidFactory.Init(_screenSize, _gameData);
+			_asteroidFactory.Init(_gameData, _unitFactory);
+			_ufoFactory.Init(_gameData, _unitFactory, _spaceship);
 		}
 
 		public void Lose()
@@ -44,11 +48,11 @@ namespace Asteroids.Game
 			HandleFire();
 		}
 
-		private void CalculateCameraSize()
+		private Vector2 CalculateCameraSize(Camera camera)
 		{
-			float cameraSize = _camera.orthographicSize * 2;
-			float aspect = _camera.aspect;
-			_screenSize = new Vector2(cameraSize * aspect, cameraSize);
+			float cameraSize = camera.orthographicSize * 2;
+			float aspect = camera.aspect;
+			return new Vector2(cameraSize * aspect, cameraSize);
 		}
 
 		private void HandleMove()

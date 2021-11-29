@@ -13,28 +13,29 @@ namespace Asteroids.Game
 		[SerializeField] private Vector2 _timeRange;
 
 		private GameData _gameData;
-		private Vector2 _screenSize;
 		private ObjectPool<Asteroid> _pool;
 		private ObjectPool<SmallAsteroid> _smallPool;
+		private UnitFactory _unitFactory;
 
-		private List<Asteroid> _asteroidsInField = new List<Asteroid>();
-		private List<Asteroid> _smallAsteroidsInField = new List<Asteroid>();
+		private readonly List<Asteroid> _asteroidsInField = new();
+		private readonly List<Asteroid> _smallAsteroidsInField = new();
 
-		public void Init(Vector2 screenSize, GameData gameData)
+		public void Init(GameData gameData, UnitFactory unitFactory)
 		{
 			_pool = new ObjectPool<Asteroid>(CreateAsteroid, Activate, Deactivate, Destroy, false, 10, 100);
-			_smallPool = new ObjectPool<SmallAsteroid>(CreateSmallAsteroid, Activate, Deactivate, Destroy, false, 10, 100);
+			_smallPool =
+				new ObjectPool<SmallAsteroid>(CreateSmallAsteroid, Activate, Deactivate, Destroy, false, 10, 100);
 
 			_gameData = gameData;
-			_screenSize = screenSize;
+			_unitFactory = unitFactory;
 
-			ClearActeroids();
-			ClearSmallActeroids();
+			ClearAsteroids();
+			ClearSmallAsteroids();
 
 			Spawn();
 		}
 
-		private void ClearActeroids()
+		private void ClearAsteroids()
 		{
 			_asteroidsInField.ForEach(asteroid =>
 			{
@@ -44,7 +45,7 @@ namespace Asteroids.Game
 			_asteroidsInField.Clear();
 		}
 
-		private void ClearSmallActeroids()
+		private void ClearSmallAsteroids()
 		{
 			_smallAsteroidsInField.ForEach(asteroid =>
 			{
@@ -75,7 +76,9 @@ namespace Asteroids.Game
 		{
 			Asteroid newAsteroid = _pool.Get();
 
-			newAsteroid.Init(_screenSize, _gameData);
+			_unitFactory.SetupItem(newAsteroid);
+
+			newAsteroid.Init(_gameData);
 			newAsteroid.OnDisable += ReturnToPool;
 
 			_asteroidsInField.Add(newAsteroid);
@@ -85,7 +88,7 @@ namespace Asteroids.Game
 		{
 			SmallAsteroid newAsteroid = _smallPool.Get();
 
-			newAsteroid.Init(_screenSize, _gameData, asteroid.transform.position, asteroid.Velocity);
+			newAsteroid.Init(_gameData, asteroid.transform.position, asteroid.Velocity);
 			newAsteroid.OnDisable += ReturnToSmall;
 
 			_asteroidsInField.Add(newAsteroid);

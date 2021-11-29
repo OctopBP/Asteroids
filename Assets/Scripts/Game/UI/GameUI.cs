@@ -8,8 +8,16 @@ namespace Asteroids.Game.UI
 	{
 		[SerializeField] private TMP_Text _scoreText;
 		[SerializeField] private GameObject _loseUI;
-		[SerializeField] private TMP_Text _resultText;
+		[Space(10), SerializeField] private TMP_Text _resultText;
 		[SerializeField] private string _resultFormat = "Result: {0}";
+		[Space(10), SerializeField] private TMP_Text _speedText;
+		[SerializeField] private string _speedFormat = "Speed {0}";
+		[Space(10), SerializeField] private TMP_Text _coordsText;
+		[SerializeField] private string _coordsFormat = "X {0} {1}";
+		[Space(10), SerializeField] private TMP_Text _angleText;
+		[SerializeField] private string _angleFormat = "A {0}";
+		[Space(10), SerializeField] private TMP_Text _bulletsText;
+		[SerializeField] private string _bulletsFormat = "{0}";
 
 		private GameData _gameData;
 
