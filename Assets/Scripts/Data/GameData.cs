@@ -8,7 +8,12 @@ namespace Asteroids.Data
 
 		public event Action<int> OnScoreChange;
 		public int Score { get; private set; }
-
+		
+		public GameData()
+		{
+			SpaceshipData = new SpaceshipData();
+		}
+		
 		public void AddScore() => SetScore(Score + 1);
 		public void ResetScore() => SetScore(0);
 

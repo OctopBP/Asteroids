@@ -16,6 +16,7 @@ namespace Asteroids.Game
 		private ObjectPool<Asteroid> _pool;
 		private ObjectPool<SmallAsteroid> _smallPool;
 		private UnitFactory _unitFactory;
+		private float _timer;
 
 		private readonly List<Asteroid> _asteroidsInField = new();
 		private readonly List<Asteroid> _smallAsteroidsInField = new();
@@ -31,8 +32,6 @@ namespace Asteroids.Game
 
 			ClearAsteroids();
 			ClearSmallAsteroids();
-
-			Spawn();
 		}
 
 		private void ClearAsteroids()
@@ -56,20 +55,23 @@ namespace Asteroids.Game
 		}
 
 
-		private async void Spawn()
+		public void Tick()
 		{
-			while (Application.isPlaying)
-			{
-				SpawnAsteroid();
-				await WaitRandomTime();
-			}
+			if (_timer <= 0)
+				Spawn();
+			else
+				_timer -= Time.deltaTime;
 		}
 
-		private async Task WaitRandomTime()
+		private void Spawn()
 		{
-			float randomTime = Random.Range(_timeRange.x, _timeRange.y);
-			int milliseconds = Mathf.RoundToInt(randomTime * 1000);
-			await Task.Delay(milliseconds);
+			SpawnAsteroid();
+			_timer = GetRandomTime();
+		}
+
+		private float GetRandomTime()
+		{
+			return Random.Range(_timeRange.x, _timeRange.y);
 		}
 
 		private void SpawnAsteroid()

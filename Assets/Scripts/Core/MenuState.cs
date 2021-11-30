@@ -12,7 +12,7 @@ namespace Asteroids.Core
 		private Game _game;
 		private IInput _input;
 
-		public static IState Instance { get; private set; }
+		private static IState Instance { get; set; }
 
 		private void Awake()
 		{

@@ -1,3 +1,4 @@
+using Asteroids.Data;
 using UnityEngine;
 
 namespace Asteroids.Game
@@ -14,16 +15,18 @@ namespace Asteroids.Game
 		private SpaceshipSettings _settings;
 		private Transform _transform;
 		private Vector3 _fireStartScale;
+		private GameData _gameData;
 
 		private void Awake()
 		{
 			_fireStartScale = _fire.localScale;
 		}
 
-		public void Init(Transform spaceshipTransform, SpaceshipSettings settings)
+		public void Init(Transform spaceshipTransform, SpaceshipSettings settings, GameData gameData)
 		{
 			_settings = settings;
 			_transform = spaceshipTransform;
+			_gameData = gameData;
 
 			Speed = Vector3.zero;
 		}
@@ -33,6 +36,12 @@ namespace Asteroids.Game
 			ChangeSpeed(moving);
 			ScaleFire(moving);
 			Move();
+			SetSpeed();
+		}
+
+		private void SetSpeed()
+		{
+			_gameData?.SpaceshipData.SetSpeed(Speed.magnitude);
 		}
 
 		public void Stop()

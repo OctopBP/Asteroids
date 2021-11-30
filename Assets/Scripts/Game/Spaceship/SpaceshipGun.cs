@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Asteroids.Data;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -19,6 +20,8 @@ namespace Asteroids.Game
 		{
 			_bullets = new ObjectPool<Bullet>(CreateBullet, Activate, Deactivate, Destroy, false, 10, 100);
 		}
+
+		public void Init(GameData _) { }
 
 		public void Fire()
 		{

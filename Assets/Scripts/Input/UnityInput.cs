@@ -10,6 +10,8 @@ namespace Asteroids.Input
 		public bool IsMoving { get; private set; }
 		public float Turn { get; private set; }
 		public bool IsFire { get; private set; }
+		public bool IsLaser { get; private set; }
+		
 		public event Action Start;
 
 		public UnityInput()
@@ -24,6 +26,9 @@ namespace Asteroids.Input
 
 			_inputControls.ActionMap.Fire.performed += FirePerformed;
 			_inputControls.ActionMap.Fire.canceled += FireCanceled;
+			
+			_inputControls.ActionMap.Laser.performed += LaserPerformed;
+			_inputControls.ActionMap.Laser.canceled += LaserCanceled;
 
 			_inputControls.ActionMap.Start.performed += StartPerformed;
 
@@ -59,6 +64,16 @@ namespace Asteroids.Input
 		private void FireCanceled(InputAction.CallbackContext ctx)
 		{
 			IsFire = false;
+		}
+		
+		private void LaserPerformed(InputAction.CallbackContext ctx)
+		{
+			IsLaser = true;
+		}
+
+		private void LaserCanceled(InputAction.CallbackContext ctx)
+		{
+			IsLaser = false;
 		}
 
 		private void StartPerformed(InputAction.CallbackContext ctx)

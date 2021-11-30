@@ -11,13 +11,16 @@ namespace Asteroids.Game
 		[SerializeField] private ParticleSystem _destroyPS;
 
 		private ISpaceshipGun _spaceshipGun;
+		private ISpaceshipGun _spaceshipLaser;
+		
 		private GameState _gameState;
 		private GameData _gameData;
 		private bool _isAlive;
 
-		private void Start()
+		private void Awake()
 		{
 			_spaceshipGun = GetComponent<SpaceshipGun>();
+			_spaceshipLaser = GetComponent<SpaceshipLaser>();
 		}
 
 		public void Init(GameState gameState, GameData gameData)
@@ -28,7 +31,9 @@ namespace Asteroids.Game
 			transform.position = Vector3.zero;
 			transform.rotation = Quaternion.identity;
 
-			_spaceshipEngene.Init(transform, _settings);
+			_spaceshipEngene.Init(transform, _settings, gameData);
+			_spaceshipGun.Init(gameData);
+			_spaceshipLaser.Init(gameData);
 
 			_destroyPS.gameObject.SetActive(false);
 			_spriteRenderer.enabled = true;
@@ -39,6 +44,7 @@ namespace Asteroids.Game
 		public void Move(bool moving)
 		{
 			_spaceshipEngene.Move(moving);
+			_gameData.SpaceshipData.SetCoords(transform.position, transform.eulerAngles.z);
 		}
 
 		public void ClampPosition(Vector2 screenSize)
@@ -54,6 +60,11 @@ namespace Asteroids.Game
 		public void Fire(bool isFire)
 		{
 			if (isFire) _spaceshipGun.Fire();
+		}
+		
+		public void Laser(bool isLaser)
+		{
+			if (isLaser) _spaceshipLaser.Fire();
 		}
 
 		public void OnCollision(Vector3 from)

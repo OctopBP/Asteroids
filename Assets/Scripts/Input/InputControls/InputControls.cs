@@ -55,6 +55,15 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Laser"",
+                    ""type"": ""Button"",
+                    ""id"": ""0bec4e10-054b-4e1a-a487-6965919fd9d0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Start"",
                     ""type"": ""Button"",
                     ""id"": ""767f59ec-1238-4337-a451-8a1aebe5f588"",
@@ -177,12 +186,45 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""603a13a7-6661-40d3-9e9e-baeef6f704ee"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""ba955a32-df34-40ec-8561-e1f1d1b96088"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""75fa9f6a-4ac9-473f-ae02-526fc71b0157"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Laser"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f08bd4f9-abc6-4abc-ba40-30e0925bb6a5"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Laser"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -196,6 +238,7 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
         m_ActionMap_Move = m_ActionMap.FindAction("Move", throwIfNotFound: true);
         m_ActionMap_Turn = m_ActionMap.FindAction("Turn", throwIfNotFound: true);
         m_ActionMap_Fire = m_ActionMap.FindAction("Fire", throwIfNotFound: true);
+        m_ActionMap_Laser = m_ActionMap.FindAction("Laser", throwIfNotFound: true);
         m_ActionMap_Start = m_ActionMap.FindAction("Start", throwIfNotFound: true);
     }
 
@@ -259,6 +302,7 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMap_Move;
     private readonly InputAction m_ActionMap_Turn;
     private readonly InputAction m_ActionMap_Fire;
+    private readonly InputAction m_ActionMap_Laser;
     private readonly InputAction m_ActionMap_Start;
     public struct ActionMapActions
     {
@@ -267,6 +311,7 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_ActionMap_Move;
         public InputAction @Turn => m_Wrapper.m_ActionMap_Turn;
         public InputAction @Fire => m_Wrapper.m_ActionMap_Fire;
+        public InputAction @Laser => m_Wrapper.m_ActionMap_Laser;
         public InputAction @Start => m_Wrapper.m_ActionMap_Start;
         public InputActionMap Get() { return m_Wrapper.m_ActionMap; }
         public void Enable() { Get().Enable(); }
@@ -286,6 +331,9 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                 @Fire.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnFire;
                 @Fire.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnFire;
                 @Fire.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnFire;
+                @Laser.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLaser;
+                @Laser.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLaser;
+                @Laser.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnLaser;
                 @Start.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnStart;
                 @Start.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnStart;
                 @Start.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnStart;
@@ -302,6 +350,9 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
+                @Laser.started += instance.OnLaser;
+                @Laser.performed += instance.OnLaser;
+                @Laser.canceled += instance.OnLaser;
                 @Start.started += instance.OnStart;
                 @Start.performed += instance.OnStart;
                 @Start.canceled += instance.OnStart;
@@ -314,6 +365,7 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnTurn(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnLaser(InputAction.CallbackContext context);
         void OnStart(InputAction.CallbackContext context);
     }
 }

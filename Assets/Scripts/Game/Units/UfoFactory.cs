@@ -15,6 +15,7 @@ namespace Asteroids.Game
 		private UnitFactory _unitFactory;
 		private Spaceship _spaceship;
 		private ObjectPool<Ufo> _pool;
+		private float _timer;
 
 		private readonly List<Ufo> _ufoInField = new();
 
@@ -27,8 +28,14 @@ namespace Asteroids.Game
 			_spaceship = spaceship;
 
 			ClearUfo();
+		}
 
-			Spawn();
+		public void Tick()
+		{
+			if (_timer <= 0)
+				Spawn();
+			else
+				_timer -= Time.deltaTime;
 		}
 
 		private void ClearUfo()
@@ -41,20 +48,15 @@ namespace Asteroids.Game
 			_ufoInField.Clear();
 		}
 
-		private async void Spawn()
+		private void Spawn()
 		{
-			while (Application.isPlaying)
-			{
-				SpawnUfo();
-				await WaitRandomTime();
-			}
+			SpawnUfo();
+			_timer = GetRandomTime();
 		}
 
-		private async Task WaitRandomTime()
+		private float GetRandomTime()
 		{
-			float randomTime = Random.Range(_timeRange.x, _timeRange.y);
-			int milliseconds = Mathf.RoundToInt(randomTime * 1000);
-			await Task.Delay(milliseconds);
+			return Random.Range(_timeRange.x, _timeRange.y);
 		}
 
 		private void SpawnUfo()
