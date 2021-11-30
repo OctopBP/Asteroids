@@ -8,6 +8,7 @@ namespace Asteroids.Data
 		public Vector2 Coords { get; private set; }
 		public float Angle { get; private set; }
 		public float Speed { get; private set; }
+		public float Cooldown { get; private set; }
 		
 		public event Action<int> OnBulletsCountChange;
 
@@ -25,6 +26,11 @@ namespace Asteroids.Data
 		public void SetSpeed(float speed)
 		{
 			Speed = speed;
+		}
+		
+		public void SetCooldown(float cooldown)
+		{
+			Cooldown = cooldown;
 		}
 	}
 }

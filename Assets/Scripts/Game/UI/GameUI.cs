@@ -24,6 +24,9 @@ namespace Asteroids.Game.UI
 		[Space(10), SerializeField] private TMP_Text _bulletsText;
 		[SerializeField] private string _bulletsFormat = "{0}";
 
+		[Space(10), SerializeField] private TMP_Text _cooldownText;
+		[SerializeField] private string _cooldownFormat = "{0}";
+
 		private GameData _gameData;
 
 		public void Init(GameData gameData)
@@ -42,6 +45,7 @@ namespace Asteroids.Game.UI
 			SetSpeed();
 			SetCoords();
 			SetAngle();
+			SetCooldown();
 		}
 
 		private void SetCoords()
@@ -58,6 +62,14 @@ namespace Asteroids.Game.UI
 		private void SetSpeed()
 		{
 			_speedText.SetText(_speedFormat, _gameData.SpaceshipData.Speed);
+		}
+
+		private void SetCooldown()
+		{
+			float cooldown = _gameData.SpaceshipData.Cooldown;
+			
+			_cooldownText.gameObject.SetActive(cooldown > 0);
+			_cooldownText.SetText(_cooldownFormat,cooldown);
 		}
 
 		public void ShowResultScreen()

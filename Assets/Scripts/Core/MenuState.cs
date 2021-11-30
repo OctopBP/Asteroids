@@ -12,13 +12,6 @@ namespace Asteroids.Core
 		private Game _game;
 		private IInput _input;
 
-		private static IState Instance { get; set; }
-
-		private void Awake()
-		{
-			Instance = Instance ?? this;
-		}
-
 		public void Init(Game game, IInput input)
 		{
 			_game = game;
@@ -42,7 +35,7 @@ namespace Asteroids.Core
 				go.SetActive(false);
 			}
 
-			// _game.StartGame();
+			_game.StartGame();
 		}
 	}
 }

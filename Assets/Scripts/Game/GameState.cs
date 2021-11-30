@@ -25,7 +25,7 @@ namespace Asteroids.Game
 			_input = input;
 
 			_gameData = new GameData();
-			_screenSize = CalculateCameraSize(_camera);
+			_screenSize = CalculateCameraSize();
 
 			_unitFactory = new UnitFactory(_screenSize, _gameData);
 
@@ -47,7 +47,7 @@ namespace Asteroids.Game
 			HandleTurn();
 			HandleFire();
 			HandleLaser();
-			
+
 			UpdateUI();
 			TickFactorys();
 		}
@@ -63,11 +63,9 @@ namespace Asteroids.Game
 			_ufoFactory.Tick();
 		}
 
-		private Vector2 CalculateCameraSize(Camera camera)
+		private Vector2 CalculateCameraSize()
 		{
-			float cameraSize = camera.orthographicSize * 2;
-			float aspect = camera.aspect;
-			return new Vector2(cameraSize * aspect, cameraSize);
+			return new Vector2(Screen.width, Screen.height) * 2 / 100;
 		}
 
 		private void HandleMove()
@@ -85,7 +83,7 @@ namespace Asteroids.Game
 		{
 			_spaceship.Fire(_input.IsFire);
 		}
-		
+
 		private void HandleLaser()
 		{
 			_spaceship.Laser(_input.IsLaser);
